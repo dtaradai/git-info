@@ -28,7 +28,7 @@
 3. git checkout -b (homework) 	- создаем и именуем новую ветку и сразу переходим в неё;
 4. git branch  			- проверяемgit список веток (не обязательно);
 4.1 git branch git checkout	- создание новой ветки newBranch в репозитории (при необходимости)
-4.2 git checkout git checkout	- переходим в созданую ветку;
+4.2 git checkout homework	- переходим в созданую ветку;
 5. git add . 			- добавление файлов к отслеживанию;
 6. git commit -m "......."	- добавляем коммит;
 7. git push origin homework	- пушим наш проэкт в репозиторий;
