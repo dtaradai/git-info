@@ -61,3 +61,108 @@ git config --global user.name "newName"	- изменение имени теку
 	Запуск PHP через консоль
 1. Открываем консоль в предыдущей папке нашего проекта и прописываем
 	php -S localhost:4000
+	
+
+     Скачивание и настройка проэкта на операционной системе Linux
+
+1. Создаем папку с нашим проэктом в директории var/www/new_project
+
+    Для этого в консоле регистрируемя и заходим под правами  супер пользователя выполнив команду
+        sudo su
+
+    Далее вводим наш пароль(его не видно, вводим вслепую)
+        [sudo] пароль для user: password
+
+    Создаем новый репозиторий
+        mkdir /var/www/new_project
+
+    Переходим в созданный проект
+        cd /var/www/new_project
+
+2.    Клонирум наш репозиторий 
+        git clone https://user@bitbucket.org/IgorOliynik/opencart-dev-3-version.git
+
+    Вводим наш пароль для bitbucket (пароль не отображается)
+        Password for 'https://user@bitbucket.org': password
+
+    Наслаждаемся процессом скачивания, в конце должно отобразиться что то похожее:
+
+    remote: Counting objects: 3909, done.
+    remote: Compressing objects: 100% (3041/3041), done.
+    remote: Total 3909 (delta 1595), reused 2699 (delta 770)
+    Получение объектов: 100% (3909/3909), 5.79 MiB | 2.85 MiB/s, готово.
+    Определение изменений: 100% (1595/1595), готово.
+
+
+3.  Далее необходимо расширить права доступа к нашему сайту. 
+    Для этого переходим на 1 папку выше:
+        cd ../
+
+    Указываем права доступа в зависимости от необходимости 
+        chmod -R 777 new_project/
+    
+    Смотрим наличие прав и пользователей
+        ls -l
+
+4.  Далее настраиваем виртуальный хост для нашего сайта. Для этого выполняем команду подставив наш сайт:
+    cp /etc/apache2/sites-available/000-default.conf /etc/apache2/sites-available/new_project.conf
+
+    Откроем новый конфигурационный файл нашего сайта:
+    nano /etc/apache2/sites-available/new_project.conf
+
+    В нем указываем:
+
+        ServerName new_project
+        DirectoryIndex index.php
+        ServerAdmin webmaster@localhost
+        DocumentRoot /var/www/new_project
+
+        <Directory /var/www/new_project>
+                AllowOverride All
+                Order Allow,Deny
+                Allow from All
+                Require all granted
+
+                <IfModule mod_rewrite.c>
+                        Options Indexes FollowSymLinks
+                </IfModule>
+        </Directory>
+
+    Cохраняем и выходим из файла.
+
+    Активируем виртуальные хосты с помощью a2ensite:
+    a2ensite new_project.conf
+
+    Отключим виртуальный хост, который создается по умолчанию:
+    a2dissite 000-default.conf
+
+    Редактируем файл hosts:
+    nano /etc/hosts
+
+    Добавляем в список название нашего проекта
+    127.0.0.1       localhost
+    127.0.1.1       dmitrii-ThinkCentre-M82
+    127.0.0.1       opencart
+    127.0.0.1       phpmyadmin
+    127.0.0.1       new_project
+
+    Сохраняем и выходим из файла.
+
+    Перезапускаем апач:
+    systemctl reload apache2
+
+5. Переходим в браузер и открываем наш сайт:
+    http://new_project/
+
+6.	Далее переходим в файл config.php и указываем правильно все пути к нашим файлам.
+	Указываем правильное подключение к БД.
+	То же  с admin->config.php
+7. В каталоге system создаем storage->cache и storage->logs
+
+8. Запись ошибок можно посмотреть в файле записи логов:
+	less +G /var/log/apache2/error.log
+	
+9.	Выполняем подключение к БД. Дя этого создаем БД в PhpMyAdmin
+	Переходим в папку с архивом БД и разархивируем его. Далее в этой папке открываем терминал и прописываем команду 
+	sudo  mysql -u root -p eurokonus < euroconus_clear20210713.sql
+заменив при этом название БД и файла, на соответствующие.
