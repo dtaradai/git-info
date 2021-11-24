@@ -103,6 +103,10 @@ git config --global user.name "newName"	- изменение имени теку
     
     Смотрим наличие прав и пользователей
         ls -l
+    
+    Делаем так, чтобы Git игнорировал изменения режима файла (chmod):
+    	cd /var/www/new_project
+    	git config core.fileMode false
 
 4.  Далее настраиваем виртуальный хост для нашего сайта. Для этого выполняем команду подставив наш сайт:
     cp /etc/apache2/sites-available/000-default.conf /etc/apache2/sites-available/new_project.conf
