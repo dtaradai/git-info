@@ -33,7 +33,7 @@
 6. git commit -m "......."	- добавляем коммит;
 7. git pull origin nameBranch	- перед пушем необходимо скачать изменения, внесенные в главную ветку, и при неоходимости исправляем конфликты.
 8. git push origin homework	- пушим наш проэкт в репозиторий;
-9. 				- вводим пароль если запросит.
+9. 	- вводим пароль если запросит.
 
 10. Переходим на страницу репозитория и выбираем нашу ветку (homework).
 	Нажимаем кнопку 'Nev pull request', оставляем коментарий, 
@@ -170,3 +170,24 @@ git config --global user.name "newName"	- изменение имени теку
 	Переходим в папку с архивом БД и разархивируем его. Далее в этой папке открываем терминал и прописываем команду 
 	sudo  mysql -u root -p eurokonus < euroconus_clear20210713.sql
 заменив при этом название БД и файла, на соответствующие.
+
+
+Установка 2-х и более версий php:
+sudo apt-get install software-properties-common -y
+sudo add-apt-repository ppa:ondrej/php
+sudo apt-get update -y
+sudo apt-get install php5.6
+
+Команды для переключения Apache:
+sudo a2dismod phpX.X    - где X.X та версия php которая работает у вас сейчас в Apache
+sudo a2enmod phpX.X     - где X.X та версия php которую требуется подключить к Apache (подключаемая версия должна быть установлена в системе)
+Пример отключения версии 5.6 и включения версии 7.4
+sudo a2dismod php5.6 && sudo a2enmod php7.4
+
+Команда для перезапуска Apache2
+sudo service apache2 restart
+
+Для переключения CLI 
+sudo update-alternatives --config php
+Указываем номер с нужной нам версией.  
+Перезапуск Apache2 не требуется
