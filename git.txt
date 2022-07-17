@@ -116,21 +116,26 @@ git config --global user.name "newName"	- изменение имени теку
 
     В нем указываем:
 
-        ServerName new_project
-        DirectoryIndex index.php
+    <VirtualHost *:80>
+        ServerName jurconsultation
+        ServerAlias www.jurconsultation
         ServerAdmin webmaster@localhost
-        DocumentRoot /var/www/new_project
+        DocumentRoot /var/www/jurconsultation
+        ErrorLog ${APACHE_LOG_DIR}/error.log
+        CustomLog ${APACHE_LOG_DIR}/access.log combined
 
-        <Directory /var/www/new_project>
-                AllowOverride All
-                Order Allow,Deny
-                Allow from All
-                Require all granted
+      <Directory /var/www/jurconsultation>
+        AllowOverride None
+        Order Allow,Deny
+        Allow from All
+        Require all granted
 
-                <IfModule mod_rewrite.c>
-                        Options Indexes FollowSymLinks
-                </IfModule>
-        </Directory>
+        <IfModule mod_rewrite.c>
+          Options Indexes FollowSymLinks
+        </IfModule>
+      </Directory>
+
+    </VirtualHost>
 
     Cохраняем и выходим из файла.
 
