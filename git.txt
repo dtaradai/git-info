@@ -117,15 +117,15 @@ git config --global user.name "newName"	- изменение имени теку
     В нем указываем:
 
     <VirtualHost *:80>
-        ServerName jurconsultation
-        ServerAlias www.jurconsultation
+        ServerName new_project
+        ServerAlias www.new_project
         ServerAdmin webmaster@localhost
-        DocumentRoot /var/www/jurconsultation
+        DocumentRoot /var/www/new_project
         ErrorLog ${APACHE_LOG_DIR}/error.log
         CustomLog ${APACHE_LOG_DIR}/access.log combined
 
-      <Directory /var/www/jurconsultation>
-        AllowOverride None
+      <Directory /var/www/new_project>
+        AllowOverride All
         Order Allow,Deny
         Allow from All
         Require all granted
@@ -175,6 +175,18 @@ git config --global user.name "newName"	- изменение имени теку
 	Переходим в папку с архивом БД и разархивируем его. Далее в этой папке открываем терминал и прописываем команду 
 	sudo  mysql -u root -p eurokonus < euroconus_clear20210713.sql
 заменив при этом название БД и файла, на соответствующие.
+
+10. Если при переходе по ссылкам возникает 404 ошибка, возможно нужно добавить файл .htaccess
+    Options +FollowSymlinks
+    RewriteEngine On
+    RewriteBase /
+    RewriteCond %{REQUEST_FILENAME} !-f
+    RewriteCond %{REQUEST_FILENAME} !-d
+    RewriteRule ^([^?]*) index.php?_route_=$1 [L,QSA]
+
+  Если ошибка остается возможно не включен rewrite
+    $ sudo a2enmod rewrite
+    $ sudo systemctl restart apache2
 
 
 Установка 2-х и более версий php:
