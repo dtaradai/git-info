@@ -1,0 +1,35 @@
+узнать занятые порты Linux
+sudo lsof -i -P -n | grep LISTEN 
+
+sudo systemctl status mysql
+sudo systemctl stop mysql
+sudo systemctl start mysql
+sudo systemctl disable mysql.service
+
+sudo systemctl status redis
+sudo systemctl start redis-server
+sudo systemctl stop redis
+sudo systemctl disable redis
+
+sudo systemctl status apache2
+sudo systemctl start apache2
+sudo systemctl stop apache2
+sudo systemctl restart apache2
+sudo systemctl disable apache2
+
+Переключение версий php
+Apache:
+sudo a2dismod php5.6 ; sudo a2enmod php7.0 ; sudo service apache2 restart
+CLI:
+update-alternatives --set php /usr/bin/php7.0
+
+
+zend_extension=/usr/lib/php/20190902/xdebug.so
+xdebug.remote_autostart = 1
+xdebug.remote_enable=1
+xdebug.remote_handler = dbgp
+xdebug.remote_port=9003
+xdebug.remote_host=127.0.0.1
+xdebug.remote_log = /tmp/xdebug_remote.log
+xdebug.remote_mode = req
+xdebug.idekey=PHP_IDE_CONFIG

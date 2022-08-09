@@ -135,6 +135,12 @@ git config --global user.name "newName"	- изменение имени теку
         </IfModule>
       </Directory>
 
+      #для запуска разных версий php на сервере apache2 для разных сайтов
+      <FilesMatch \.php$>
+        # For Apache version 2.4.10 and above, use SetHandler to run PHP as a fastCGI process server
+        SetHandler "proxy:unix:/run/php/php8.1-fpm.sock|fcgi://localhost"
+      </FilesMatch>
+
     </VirtualHost>
 
     Cохраняем и выходим из файла.
