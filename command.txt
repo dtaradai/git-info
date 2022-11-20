@@ -24,12 +24,8 @@ CLI:
 update-alternatives --set php /usr/bin/php7.0
 
 
-zend_extension=/usr/lib/php/20190902/xdebug.so
-xdebug.remote_autostart = 1
-xdebug.remote_enable=1
-xdebug.remote_handler = dbgp
-xdebug.remote_port=9003
-xdebug.remote_host=127.0.0.1
-xdebug.remote_log = /tmp/xdebug_remote.log
-xdebug.remote_mode = req
-xdebug.idekey=PHP_IDE_CONFIG
+Команда для замены формата ячеек в файле sql перед импортом
+sed -i 's/utf8mb4_0900_ai_ci/utf8mb4_unicode_ci/g' tt_dev.sql
+
+Импорт в БД Docker 
+docker exec -i danswinkel-dev-mysql sh -c 'exec mysql -uroot -prootpass danswinkel_dev' < dancedeal_new_dump.sql
