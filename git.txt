@@ -58,7 +58,7 @@ git config --global user.name "newName"	- изменение имени теку
 2. vagrant halt			- Корректное завершение работы виртуальной машины
 
 
-	Запуск PHP через консоль
+	Запуск PHP через консоль Windows
 1. Открываем консоль в предыдущей папке нашего проекта и прописываем
 	php -S localhost:4000
 	
@@ -67,14 +67,11 @@ git config --global user.name "newName"	- изменение имени теку
 
 1. Создаем папку с нашим проэктом в директории var/www/new_project
 
-    Для этого в консоле регистрируемя и заходим под правами  супер пользователя выполнив команду
-        sudo su
-
+Создаем новый репозиторий
+        sudo mkdir /var/www/new_project
+        
     Далее вводим наш пароль(его не видно, вводим вслепую)
         [sudo] пароль для user: password
-
-    Создаем новый репозиторий
-        mkdir /var/www/new_project
 
     Переходим в созданный проект
         cd /var/www/new_project
@@ -99,7 +96,7 @@ git config --global user.name "newName"	- изменение имени теку
         cd ../
 
     Указываем права доступа в зависимости от необходимости 
-        chmod -R 777 new_project/
+      sudo  chmod -R 777 new_project/
     
     Смотрим наличие прав и пользователей
         ls -l
@@ -109,10 +106,10 @@ git config --global user.name "newName"	- изменение имени теку
     	git config core.fileMode false
 
 4.  Далее настраиваем виртуальный хост для нашего сайта. Для этого выполняем команду подставив наш сайт:
-    cp /etc/apache2/sites-available/000-default.conf /etc/apache2/sites-available/new_project.conf
+    sudo cp /etc/apache2/sites-available/000-default.conf /etc/apache2/sites-available/new_project.conf
 
     Откроем новый конфигурационный файл нашего сайта:
-    nano /etc/apache2/sites-available/new_project.conf
+    sudo nano /etc/apache2/sites-available/new_project.conf
 
     В нем указываем:
 
@@ -146,13 +143,13 @@ git config --global user.name "newName"	- изменение имени теку
     Cохраняем и выходим из файла.
 
     Активируем виртуальные хосты с помощью a2ensite:
-    a2ensite new_project.conf
+    sudo a2ensite new_project.conf
 
     Отключим виртуальный хост, который создается по умолчанию:
-    a2dissite 000-default.conf
+    sudo a2dissite 000-default.conf
 
     Редактируем файл hosts:
-    nano /etc/hosts
+    sudo nano /etc/hosts
 
     Добавляем в список название нашего проекта
     127.0.0.1       localhost
@@ -164,7 +161,7 @@ git config --global user.name "newName"	- изменение имени теку
     Сохраняем и выходим из файла.
 
     Перезапускаем апач:
-    systemctl reload apache2
+    sudo systemctl reload apache2
 
 5. Переходим в браузер и открываем наш сайт:
     http://new_project/
